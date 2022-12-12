@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html>
-<body> <!--This is how you comment :D-->
-<!--This is where the body of the main page starts-->
+<html lang="en-US">
+  <body> <!--This is how you comment :D-->
+    <!--This is where the body of the main page starts-->
+    <p id="intro">Test Project Build 0.1.</p> <!-- = Paragraph Tag-->
+    <head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        background: #eee;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
 
-<h1>Scuffed Pong</h1> <!--H = Heading Tag-->
-
-<p id="intro">Test Project Build 0.1.</p> <!-- = Paragraph Tag-->
-
-<button type="button" onclick='document.getElementById("intro").innerHTML = "Test successful"'>Change Text</button>
-
-<button onclick="document.getElementById('myImage').src='images/pongball.gif'">Turn on the light</button>
-
-<img id="myImage" src="images/pongball.gif" style="width:100px">
-
-<button onclick="document.getElementById('myImage').src='images/invertball.gif'">Invert the ball</button>
-
-</body>
+    <script>
+      // JavaScript code goes here
+    </script>
+  </body>
 </html>
+<!-- End of file -->
+    
+  
+
+
+
+
+
 
