@@ -18,6 +18,9 @@ Just rename any file from `.jsx` to `.tsx`. You can also try our [TypeScript Tem
 
 ### Log
 
-12/8/2022 - Day One Start https://www.w3schools.com/js/js_intro.asp
-12/12/2022 - Day Two https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
-12/13/2022 - Day Three
+12/8/2022 - Day One: Start https://www.w3schools.com/js/js_intro.asp 0.1
+
+12/12/2022 - Day Two: https://developer.mozilla.org/en- 
+US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript 0.1
+
+12/13/2022 - Day Three: Starting to work on a reformat of the project 0.2
