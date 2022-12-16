@@ -1,23 +1,88 @@
-<!DOCTYPE html>>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html>
+<head>
     <meta charset="utf-8" />
-    <title>Culminating Project Build 0.2</title>
-    <style>* { padding: 0; margin: 0; } canvas  {background: #fff; display: block; margin: 0 auto; }</style>
-  </head>
-  
-  <body>
-    
-    <canvas id = "testcanvas" width="1920" height="1080"><canvas></canvas>
-      
-  </body>
+    <title>Culminating Project Build 0.3</title>
+    <style>* { padding: 0; margin: 0; } canvas { background: #eee; display: block; margin: 0 auto; }</style>
+</head>
+<body>
 
-  <script>
-    var canvas = document.getElementById("testcanvas");
+<canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+<script>
+    var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var ballRadius = 10;
     var x = canvas.width/2;
     var y = canvas.height-30;
-    var dx = 2; // ball speed x axis
-    var dy = -2; // ball speed y axis
-  </script>
+    var dx = 2; // Ball X asis speed
+    var dy = -2; //Ball Y axis speed
+    var paddleHeight = 100; // Height of the paddle on the X axis
+    var paddleWidth = 75; // Width of the paddle on the Y axis
+    var paddleX = (canvas.width - paddleWidth)/2; // Sets the start location of the paddle
+    var rightPressed = false; // Used to define the right key as not being pressed
+    var leftPressed = false; // Used to defien the left key as not being pressed
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener( "keyup", keyUpHandler, false); 
+
+        // Function used check if either A or D is being pressed
+    function keyDownHandler(e) {
+      if (e.key = "A") {
+        rightPressed = true;
+    } 
+      else if (e.key = 'D') {
+        leftPressed = true;
+      }
+    }
+    // Function used to check if A or D is NOT being pressed
+    function keyUpHandler(e){
+      if (e.key = "A") {
+        rightPressed = false;
+      } 
+      else if (e.key = 'D') {
+        leftPressed = false;
+      }
+    }
+  
+    function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+  
+    function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(paddleX, canvas.height - paddleHeight, paddleHeight, paddleWidth);
+        ctx.fillStyle = "orange";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
+        drawPaddle();
+        
+        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) { //Logic for keeping the ball in the cavnas (X Axis)
+            dx = -dx;
+        }
+        if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) { //Logic for the Y axis
+            dy = -dy;
+        }
+
+        x += dx;
+        y += dy;
+    }
+  
+    setInterval(draw, 10); // Timer that will update the canvas every 10ms
+</script>
+
+</body>
+</html>
+      
+      
+
+
