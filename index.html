@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="1920" height="1080"></canvas>
+<canvas id="myCanvas" width="480" height="320"></canvas>
 
 <script>
     var canvas = document.getElementById("myCanvas");
@@ -16,35 +16,51 @@
     var x = canvas.width/2;
     var y = canvas.height-30;
     var dx = 2; // Ball X asis speed
-    var dy = -2; //Ball Y axis speed
-    var paddleHeight = 100; // Height of the paddle on the X axis
+    var dy = -2; //Ball Y axis speed  
+    var paddleHeight = 10; // Height of the paddle on the X axis
     var paddleWidth = 75; // Width of the paddle on the Y axis
     var paddleX = (canvas.width - paddleWidth)/2; // Sets the start location of the paddle
     var rightPressed = false; // Used to define the right key as not being pressed
     var leftPressed = false; // Used to defien the left key as not being pressed
+    var brickRowCount = 3; // Brick rows
+    var brickColumnCount = 5; // Brick collumms
+    var brickWidth = 75; //You get the memo
+    var brickHeight = 20;
+    var brickPadding = 10; //Distance between each brick
+    var brickOffsetTop = 30;
+    var brickOffsetLeft = 30;
+   
+    //Runs through the brick variables to create them onto the game
+    var bricks = [];
+    for(var c=0; c<brickColumnCount; c++) {
+        bricks[c] = [];
+        for(var r=0; r<brickRowCount; r++) {
+            bricks[c][r] = { x: 0, y: 0 };
+        }
+    }
 
     document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener( "keyup", keyUpHandler, false); 
+    document.addEventListener("keyup", keyUpHandler, false);
 
-        // Function used check if either A or D is being pressed
+        // Function used check if either key is being pressed
     function keyDownHandler(e) {
-      if (e.key = "A") {
-        rightPressed = true;
-    } 
-      else if (e.key = 'D') {
-        leftPressed = true;
-      }
+        if(e.code  == "ArrowRight") {
+            rightPressed = true;
+        }
+        else if(e.code == 'ArrowLeft') {
+            leftPressed = true;
+        }
     }
-    // Function used to check if A or D is NOT being pressed
-    function keyUpHandler(e){
-      if (e.key = "A") {
-        rightPressed = false;
-      } 
-      else if (e.key = 'D') {
-        leftPressed = false;
-      }
+    // Function used to check if either key NOT being pressed
+    function keyUpHandler(e) {
+        if(e.code  == "ArrowRight") {
+            rightPressed = false;
+        }
+        else if(e.code == 'ArrowLeft') {
+            leftPressed = false;
+        }
     }
-  
+    // Function used to draw the ball
     function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI*2);
@@ -52,32 +68,65 @@
         ctx.fill();
         ctx.closePath();
     }
-  
+    // Function used to draw the paddle
     function drawPaddle() {
         ctx.beginPath();
-        ctx.rect(paddleX, canvas.height - paddleHeight, paddleHeight, paddleWidth);
-        ctx.fillStyle = "orange";
+        ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+        ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
     }
-
-    function draw() {
+    //Function used to draw the bricks
+    function drawBricks() {
+        for(var c=0; c<brickColumnCount; c++) {
+            for(var r=0; r<brickRowCount; r++) {
+                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = "black";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+     //Function where we call things we want drawn ontop of the canvas alongside with logic I,E border bounds
+     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
+        drawBricks();
         drawPaddle();
-        
-        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) { //Logic for keeping the ball in the cavnas (X Axis)
-            dx = -dx;
+
+        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+             dx = -dx;
         }
-        if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) { //Logic for the Y axis
+        if(y + dy < ballRadius) {
             dy = -dy;
+        }
+        else if(y + dy > canvas.height-ballRadius) {
+            if(x > paddleX && x < paddleX + paddleWidth) {
+                dy = -dy;
+            }
+             else {
+                alert("YOU ARE ASS");
+                 document.location.reload();
+                }
+              }
+        
+        if(rightPressed && paddleX < canvas.width-paddleWidth) { //Where we set the paddles speed on the X axis per key press
+            paddleX += 7;
+        }
+        else if(leftPressed && paddleX > 0) { //Y axis speed for the paddle per key press
+            paddleX -= 7;
         }
 
         x += dx;
         y += dy;
-    }
+      }
   
-    setInterval(draw, 10); // Timer that will update the canvas every 10ms
+var interval = setInterval(draw, 10);
 </script>
 
 </body>

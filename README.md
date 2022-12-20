@@ -24,3 +24,5 @@ Just rename any file from `.jsx` to `.tsx`. You can also try our [TypeScript Tem
 US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript 0.1
 
 12/13/2022 - Day Three: Starting to work on a reformat of the project 0.2
+
+12/16/2022 - Day Four: Will stop updating here and instead comment during pushes (hi mr tombs)
